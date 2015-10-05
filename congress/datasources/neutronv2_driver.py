@@ -226,6 +226,10 @@ class NeutronV2Driver(datasource_driver.DataSourceDriver,
         datasource_driver.ExecutionDriver.__init__(self)
         self.creds = args
         self.neutron = neutronclient.v2_0.client.Client(**self.creds)
+        builtin = ds_utils.inspect_methods(self.neutron, 'neutronclient.v2_0.')
+        for method in builtin:
+            self.add_executable_method(method['name'], method['args'],
+                                       method['desc'])
         self._init_end_start_poll()
 
     @staticmethod

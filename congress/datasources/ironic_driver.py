@@ -135,6 +135,12 @@ class IronicDriver(datasource_driver.DataSourceDriver,
         datasource_driver.ExecutionDriver.__init__(self)
         self.creds = self.get_ironic_credentials(args)
         self.ironic_client = client.get_client(**self.creds)
+
+        builtin = ds_utils.inspect_methods(self.ironic_client,
+        'ironicclient.v1.')
+        for method in builtin:
+            self.add_executable_method(method['name'], method['args'],
+                                       method['desc'])
         self._init_end_start_poll()
 
     @staticmethod

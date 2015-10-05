@@ -359,6 +359,8 @@ class TestCloudFoundryV2Driver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('setServices', api_args,
+                                           'Set Services')
         expected_ans = 'arg1=1'
 
         self.driver.execute('setServices', api_args)

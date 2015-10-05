@@ -157,6 +157,13 @@ class CeilometerDriver(datasource_driver.DataSourceDriver,
         datasource_driver.ExecutionDriver.__init__(self)
         self.creds = self.get_ceilometer_credentials_v2(args)
         self.ceilometer_client = cc.get_client(**self.creds)
+        builtin = ds_utils.inspect_methods(self.ceilometer_client,
+        'ceilometerclient.v2.')
+        print "Builtin in Ceilometer: %s" % builtin
+        for method in builtin:
+            self.add_executable_method(method['name'], method['args'],
+            method['desc'])
+
         self._init_end_start_poll()
 
     @staticmethod

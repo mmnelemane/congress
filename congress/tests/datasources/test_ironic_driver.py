@@ -188,6 +188,8 @@ class TestIronicDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('updateNode', api_args,
+                                           'Update Node')
         expected_ans = 'arg1=1'
 
         self.driver.execute('updateNode', api_args)

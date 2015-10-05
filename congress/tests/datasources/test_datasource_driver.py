@@ -1612,6 +1612,8 @@ class TestExecutionDriver(base.TestCase):
         arg = {"positional": ["value1", "value2"], "named": {"arg3": "value3"}}
         # it will raise exception if the method _execute_api failed to location
         # the api
+        self.exec_driver.add_executable_method('action', arg, 'Dummy Action')
+
         self.exec_driver._execute_api(nova_client, "action", arg)
 
     def test_get_actions_order_by_name(self):

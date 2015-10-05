@@ -102,6 +102,8 @@ class TestSwiftDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('updateObject', api_args,
+                                           'Update Object')
         expected_ans = 'arg1=1'
 
         self.driver.execute('updateObject', api_args)

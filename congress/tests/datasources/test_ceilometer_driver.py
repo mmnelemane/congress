@@ -275,6 +275,8 @@ class TestCeilometerDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('setAlarm', api_args, "unit test"
+                "execute")
         expected_ans = 'arg1=1'
 
         self.driver.execute('setAlarm', api_args)
