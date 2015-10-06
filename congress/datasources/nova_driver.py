@@ -191,9 +191,11 @@ class NovaDriver(datasource_driver.DataSourceDriver,
         """Overwrite ExecutionDriver.execute()."""
         # action can be written as a method or an API call.
         func = getattr(self, action, None)
+        print "inside nova_driver, func : %s, action: %s" % (str(func), action)
         if func and self.is_executable(func):
             func(action_args)
         else:
+            print "action in nova_driver: %s" % action
             self._execute_api(self.nova_client, action, action_args)
 
     # "action" methods - to be used with "execute"

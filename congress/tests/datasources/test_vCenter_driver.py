@@ -314,6 +314,8 @@ class TestvCenterDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('connectNetwork', api_args,
+                                           'Connect Network')
         expected_ans = 'arg1=1'
 
         self.driver.execute('connectNetwork', api_args)

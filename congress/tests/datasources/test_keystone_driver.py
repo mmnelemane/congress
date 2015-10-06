@@ -132,6 +132,8 @@ class TestKeystoneDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('enableProject', api_args,
+                                           'Enable Project')
         expected_ans = 'arg1=1'
 
         self.driver.execute('enableProject', api_args)

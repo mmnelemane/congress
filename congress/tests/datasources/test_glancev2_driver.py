@@ -131,6 +131,8 @@ class TestGlanceV2Driver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('createSnapshot', api_args,
+                                           'Create Snapshot')
         expected_ans = 'arg1=1'
 
         self.driver.execute('createSnapshot', api_args)

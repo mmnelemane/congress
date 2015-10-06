@@ -132,6 +132,8 @@ class TestCinderDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('createVolume', api_args,
+                                           'Create Volume')
         expected_ans = 'arg1=1'
 
         self.driver.execute('createVolume', api_args)

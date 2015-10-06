@@ -108,7 +108,7 @@ class TestHeatV1Driver(base.TestCase):
             def __init__(self):
                 self.testkey = None
 
-            def abandanStack(self, arg1):
+            def abandonStack(self, arg1):
                 self.testkey = 'arg1=%s' % arg1
 
         heat_client = HeatClient()
@@ -116,8 +116,10 @@ class TestHeatV1Driver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('abandonStack', api_args,
+                                           'Abandon Stack')
         expected_ans = 'arg1=1'
 
-        self.driver.execute('abandanStack', api_args)
+        self.driver.execute('abandonStack', api_args)
 
         self.assertEqual(heat_client.testkey, expected_ans)

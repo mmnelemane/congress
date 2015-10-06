@@ -268,6 +268,8 @@ class TestNovaDriver(base.TestCase):
         api_args = {
             'positional': ['1']
         }
+        self.driver.add_executable_method('connectNetwork', api_args,
+                                           'Connect Network')
         expected_ans = 'arg1=1'
 
         self.driver.execute('connectNetwork', api_args)
@@ -280,6 +282,7 @@ class TestNovaDriver(base.TestCase):
                 self.testkey = None
 
             def set_meta(self, server=None, metadata=None):
+                print "Inside server object dummy"
                 self.testkey = 'server=%s, metadata=%s' % (server, metadata)
 
         class NovaClient(object):
@@ -291,6 +294,8 @@ class TestNovaDriver(base.TestCase):
         expected_ans = "server=1, metadata={'meta-key1': 'meta-value1'}"
 
         action_args = {'positional': ['1', 'meta-key1', 'meta-value1']}
+        self.driver.add_executable_method('set_meta', action_args,
+                                           'Set servers meta')
         self.driver.execute('servers_set_meta', action_args)
 
         self.assertEqual(nova_client.servers.testkey, expected_ans)

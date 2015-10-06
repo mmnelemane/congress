@@ -1216,13 +1216,26 @@ class ExecutionDriver(object):
         return method
 
     def _execute_api(self, client, action, action_args):
+        print("Action: %s, client: %s" %(action, client))
+        try:
+            method = self._get_method(client, action)
+        except Exception as e:
+            LOG.exception(e.message)
+            raise exception.CongressException(
+                    "driver %s tries to execute %s on arguments %s but "
+                    "the method isn't listed as an executable method."
+                    % (self.name, action, action_args))
+        print("Method: %s, Dir %s" %(method, dir(method)))
+        print("Executable Methods: %s" % self.executable_methods.keys())
+        print("Method Name: %s" % method.__name__)
+        print("Action details: %s" % self.executable_methods[method.__name__])
+        assert(self.is_executable(method))
         positional_args = action_args.get('positional', [])
         named_args = action_args.get('named', {})
         LOG.debug('Processing action execution: action = %s, '
                   'positional args = %s, named args = %s'
                   % (action, positional_args, named_args))
         try:
-            method = self._get_method(client, action)
             method(*positional_args, **named_args)
         except Exception as e:
             LOG.exception(e.message)
